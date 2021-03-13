@@ -20,7 +20,7 @@ module pmod_ad1_top #(
     reg rst_input, rst_input_metastable;
     reg enable, enable_metastable;
     always @(posedge clk_i) begin
-        {rst_input, rst_input_metastable} <= {rst_input_metastable, rst_input_i};
+        {rst_input, rst_input_metastable} <= {rst_input_metastable, rst_i};
         {enable, enable_metastable} <= {enable_metastable, enable_i};
     end
 
@@ -34,9 +34,9 @@ module pmod_ad1_top #(
     wire [23:0] sample_data;
     wire sample_data_valid;
     ad7476a_interface #(
-        CLK_FREQ_HZ = CLK_FREQ,
-        SCLK_FREQ_HZ = 20000000,
-        NUM_DEVICES = 2,
+        .CLK_FREQ_HZ(CLK_FREQ),
+        .SCLK_FREQ_HZ(20000000),
+        .NUM_DEVICES(2)
     ) pmod_ad1 (
         .clk_i(clk_i),
         .rst_i(rst),
@@ -65,14 +65,14 @@ module pmod_ad1_top #(
 
     // Output the last samples read as PWM signals
     pwm #(
-        WIDTH = 12
+        .WIDTH(12)
     ) sample1_pwm (
         .clk_i(clk_i),
         .compare_i(sample1),
         .pwm_o(pwm_o[0])
     );
     pwm #(
-        WIDTH = 12
+        .WIDTH(12)
     ) sample2_pwm (
         .clk_i(clk_i),
         .compare_i(sample2),
