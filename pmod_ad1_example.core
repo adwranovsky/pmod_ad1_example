@@ -26,10 +26,10 @@ targets:
             verilator:
                 mode : "lint-only"
     arty_a7_35t:
-        default_tool : yosys
+        default_tool : vivado
         filesets     : [rtl, arty_a7_35t]
-        toplevel     : arty_a7_35t
+        toplevel     : pmod_ad1_top
         tools:
-            vivado: {part : xc7a35ticsg324-1L}
-            verilator:
-                mode: "lint-only"
+            vivado:
+                part: xc7a35ticsg324-1L
+                synth: yosys
